@@ -17,8 +17,7 @@ pipeline{
     
         stage ('Test'){
             steps{
-                script{
-                  echo "${params.PARAM_STRING}"
+                sh sleep 2
                 }
             }
         }
