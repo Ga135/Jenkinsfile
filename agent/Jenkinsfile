@@ -19,7 +19,6 @@ pipeline{
             steps{
                 script{
                   echo "${params.PARAM_STRING}"
-                  sleep 5
                 }
             }
         }
