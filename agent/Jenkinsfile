@@ -10,7 +10,10 @@ pipeline{
                 label 'Slave1'
             }
             steps{
-                  sh 'sleep 5'
+                  sh '''
+                  sleep 5
+                  echo $TEST $TEST1
+                  '''
             }
         }
     
