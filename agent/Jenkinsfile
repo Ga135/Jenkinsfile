@@ -1,5 +1,9 @@
 pipeline{
     agent none
+    environment{
+        TEST="test_value"
+        TEST1="test_value1"
+    }
     stages{
         stage ('Build'){
             agent {
