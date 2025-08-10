@@ -1,5 +1,5 @@
 pipeline{
-    agent none 
+    agent any 
     stages{
         stage ('Build'){
             agent {
@@ -11,9 +11,6 @@ pipeline{
         }
     
         stage ('Test'){
-            agent {
-                label 'Slave2'
-            }
             steps{
                   sh '''
                   #!/bin/bash
