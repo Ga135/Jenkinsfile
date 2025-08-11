@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent slave1
 
     stages{
         stage ('Checkout'){
@@ -17,11 +17,24 @@ pipeline{
             steps{
                   sh '''
                   ls -lrt
-                  mvn clean install
                   '''
             }
         }
-    
+        stage ('Test'){
+            steps{
+                  sh '''
+                  sleep 5
+                  exit 1
+                  '''
+            }
+        }
+        stage ('Build'){
+            steps{
+                  sh '''
+                  ls -lrt
+                  '''
+            }
+        }
        
     }
 }
