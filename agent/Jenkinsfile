@@ -8,16 +8,16 @@ pipeline{
     triggers{
      cron('*/59 * * * *')
     }
-    stages{
+      stages{
         stage ('Checkout'){
->>             steps{
+                steps{
                    checkout([$class: 'GitSCM',
->>                 branches : [[name:'*/master' ]],
->>                 userRemoteConfigs: [[url: 'https://github.com/Ga135/jenkins_pipeline_java_maven.git'
->>                 ]] ])
->> 
->>             }
->>         }
+                   branches : [[name:'*/master' ]],
+                   userRemoteConfigs: [[url: 'https://github.com/Ga135/jenkins_pipeline_java_maven.git'
+                 ]] ])
+ 
+                }
+            }
        
 
         stage ('Build'){
