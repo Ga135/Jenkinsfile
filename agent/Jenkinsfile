@@ -28,7 +28,7 @@ pipeline{
                   '''
             }
         }
-        stage ('Build'){
+        stage ('Deploy'){
             steps{
                   sh '''
                   ls -lrt
