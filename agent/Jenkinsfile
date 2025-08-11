@@ -9,6 +9,15 @@ pipeline{
      cron('*/59 * * * *')
     }
     stages{
+        stage ('Checkout'){
+>>             steps{
+                   checkout([$class: 'GitSCM'
+>>                 branches : [[name:'*/master' ]],
+>>                 userRemoteConfigs: [[url: 'https://github.com/Ga135/jenkins_pipeline_java_maven.git'
+>>                 ]] ])
+>> 
+>>             }
+>>         }
        
 
         stage ('Build'){
