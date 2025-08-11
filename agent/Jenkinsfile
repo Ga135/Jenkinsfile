@@ -22,10 +22,13 @@ pipeline{
         }
         stage ('Test'){
             steps{
-                  sh '''
-                  sleep 5
-                  exit 1
-                  '''
+                catchError(buildResult:'SUCCESS', stageResult:'FAILURE'){
+                    sh '''
+                    sleep 5
+                    exit 1
+                }  '''
+                
+                
             }
         }
         stage ('Deploy'){
