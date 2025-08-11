@@ -25,7 +25,7 @@ pipeline{
                 catchError(buildResult:'SUCCESS', stageResult:'FAILURE'){
                     sh '''
                     sleep 5
-                    exit 1
+                    
                 }  '''
                 }
                 
