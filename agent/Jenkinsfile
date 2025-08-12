@@ -9,7 +9,7 @@ pipeline{
                 sh 'echo $USER $Password'
 
                 withCredentials([string(credentialsId:'test_up',variable:'Secret_text')])
-                sh 'echo $Secret_text'
+                sh 'echo $test_up $Secret_text'
 
                 withCredentials([file(credentialsId:'test_up',variable:'File_path')])
                 sh 'cat $File_path'
