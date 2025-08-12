@@ -9,19 +9,19 @@ pipeline{
                 sh 'echo $USER $Password'
                 }
 
-                withCredentials([string(credentialsId:'str',variable:'Secret_text')])
+                withCredentials([string(credentialsId:'Secrettext',variable:'Secret_text')])
                 {
-                sh 'echo $str $Secret_text'
+                sh 'echo $Secrettext $Secret_text'
                 }
 
-                withCredentials([file(credentialsId:'fl',variable:'File_path')])
+                withCredentials([file(credentialsId:'secretfile',variable:'File_path')])
                 {
                 sh 'cat $File_path'
                 }
 
-                withCredentials([sshUserPrivateKey(credentialsId:'spk',usernameVariable:'User', keyFileVariable:'SSH_KEY')])
+                withCredentials([sshUserPrivateKey(credentialsId:'SSH',usernameVariable:'User', keyFileVariable:'SSH_KEY')])
                 {
-                sh 'echo $spk $User $SSH_KEY'
+                sh 'echo $SSH $User $SSH_KEY'
 
                 }
             }
