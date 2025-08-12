@@ -1,59 +1,16 @@
 pipeline{
     agent any
 
-    parameters {
-        booleanParam(name: 'CHECKOUT', defaultValue: true, description: 'Toggle this value')
-        booleanParam(name: 'BUILD', defaultValue: true, description: 'Toggle this value')
-        booleanParam(name: 'TEST', defaultValue: false, description: 'Toggle this value')
-        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Toggle this value')
-    }
-
-    stages {
-        stage('MyCheckout') {
-            when {
-                expression {
-                    params.CHECKOUT == true
-                }
-            }
+    stages{
+        stage('Checkout'){
             steps{
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/master']],
-                    userRemoteConfigs: [[url: 'https://github.com/Ga135/jenkins_pipeline_java_maven.git']]])
-            }
-        }
-        
-
-        stage('Build') {
-            when {
-                expression {
-                    params.BUILD == true
+                withCredentials([usernamePassword(credentialsId:'test_up', usernameVariable:'USER', passwordVariable: 'Password')])
+                {
+                sh 'echo $USER $Password'   
                 }
-            }
-            steps {
-                sh 'mvn clean'
-            }
-        }
-
-        stage('Test') {
-            when {
-                expression {
-                    params.TEST == true
-                }
-            }
-            steps {
-                sleep 5
-            }
-        }
-
-        stage('Deploy') {
-            when {
-                expression {
-                    params.DEPLOY == true
-                }
-            }
-            steps {
-                sleep 5
             }
         }
     }
+    
+
 }
