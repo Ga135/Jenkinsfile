@@ -1,43 +1,64 @@
 pipeline{
     agent any
 
+    parameters{
+        booleanParam(name:'CHECKOUT', defaultValue:true, description:'Toggle this value')
+        booleanParam(name:'BUILD', defaultValue:true, description:'Toggle this value')
+        booleanParam(name:'TEST', defaultValue:true, description:'Toggle this value')
+        booleanParam(name:'DEPLOY', defaultValue:false, description:'Toggle this value')
+    }
+
     stages{
-        stage ('Checkout'){
+        stage('MyCheckout')
+            when {
+                expression {
+                    params.CHECKOUT==true
+                }
+            }
+            steps ('Checkout'){
                 steps{
                    checkout([$class: 'GitSCM',
                    branches : [[name:'*/master' ]],
-                   userRemoteConfigs: [[url: 'https://github.com/Ga135/jenkins_pipeline_java_maven.git'
-                 ]] ])
+                   userRemoteConfigs: [[url: 'https://github.com/Ga135/jenkins_pipeline_java_maven.git']] ])
  
                 }
             }
-       
-        stage('Test Multiple')
-        {
-            parallel{
-                stage ('Build'){
-                    steps{
-                        sh '''
-                        ls -lrt
-                        '''
-                    }
+        }
+        stage('Build'){
+            when {
+                expression{
+                    params.BUILD==true
                 }
-                stage ('Test'){
-                    steps{
-                            sh '''
-                            sleep 1
-                            '''   
-                    }
+            }
+            steps('Build'){
+                steps{
+                    mvn clean
                 }
             }
         }
-        stage ('Deploy'){
-            steps{
-                  sh '''
-                  ls -lrt
-                  '''
+        stage('Test'){
+            when {
+                expression{
+                    params.TEST==true
+                }
+            }
+            steps('Test'){
+                steps{
+                    sleep 5
+                }
             }
         }
-       
+        stage('Deploy'){
+            when {
+                expression{
+                    params.DEPLOY==true
+                }
+            }
+            steps('deploy'){
+                steps{
+                    sleep 5
+                }
+            }
+        }  
     }
-}
+
