@@ -7,14 +7,20 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId:'test_up', usernameVariable:'USER', passwordVariable: 'Password')])
                 {
                 sh 'echo $USER $Password'
+                }
 
                 withCredentials([string(credentialsId:'test_up',variable:'Secret_text')])
+                {
                 sh 'echo $test_up $Secret_text'
+                }
 
                 withCredentials([file(credentialsId:'test_up',variable:'File_path')])
+                {
                 sh 'cat $File_path'
+                }
 
                 withCredentials([sshUserPrivateKey(credentialsId:'test_up',usernameVariable:'User', keyFileVariable:'SSH_KEY')])
+                {
                 sh 'echo $test_up $User $SSH_KEY'
 
                 }
